@@ -7,15 +7,15 @@ def create_database(input_file, output_file):
     fn = gffutils.example_filename(input_file)
     db = gffutils.create_db(fn, dbfn=output_file, force=True, keep_order=True, merge_strategy='merge', sort_attribute_values=True)
 
+
 def get_introns(database_file, out_introns_file):
 
     db = gffutils.FeatureDB(database_file, keep_order=True)
+    all_introns = open(out_introns_file, "w")
     
     #Create introns
 
     introns = db.create_introns()
-
-    all_introns = open(out_introns_file, "w")
 
     count = 0
     for i in introns:
@@ -25,8 +25,6 @@ def get_introns(database_file, out_introns_file):
     all_introns.close()
 
 
-
-
 if __name__ == "__main__":
     
     in_file = "Homo_sapiens.GRCh37.75.gtf"
@@ -34,7 +32,6 @@ if __name__ == "__main__":
     introns_file = "all_introns_ensemble75.txt"
 
     create_database(in_file, db_file)
-
     get_introns(db_file, introns_file)
 
 
